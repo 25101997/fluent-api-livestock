@@ -1,0 +1,94 @@
+<form action="" class="form_container" method="post">
+            <h2 class="form_title">Nuevo Registro Reproductivo</h2>
+
+            <div class="form_section" id="born">
+
+                <input
+                    id="codigo"
+                    name="codigo"
+                    type="text"
+                    inputmode="numeric"
+                    maxlength="10"
+                    placeholder="Madre"
+                    list="codigos"
+                    [(ngModel)]="codigoSeleccionado"
+                    (keypress)="allowOnlyNumbers($event)"
+                    (paste)="validatePaste($event)"
+                    class="form-control mt-1"
+                    style="max-width: 100px;"
+                />
+
+                <datalist id="codigos">
+                    <option *ngFor="let c of codigos" [value]="c"></option>
+                </datalist>
+
+                <input
+                    id="codigo"
+                    name="codigo"
+                    type="text"
+                    inputmode="numeric"
+                    maxlength="10"
+                    placeholder="Padre"
+                    list="codigos"
+                    [(ngModel)]="codigoSeleccionado"
+                    (keypress)="allowOnlyNumbers($event)"
+                    (paste)="validatePaste($event)"
+                    class="form-control mt-1"
+                    style="max-width: 100px;"
+                />
+
+                <datalist id="codigos">
+                    <option *ngFor="let c of codigos" [value]="c"></option>
+                </datalist>
+
+                <input 
+                    type="date" 
+                    placeholder="Fecha de Inicio" 
+                    class="form-control mt-1"
+                >
+
+                <input 
+                    type="date" 
+                    placeholder="Fecha de Fin" 
+                    class="form-control mt-1"
+                >
+
+                <input 
+                    type="number" 
+                    placeholder="Machos Nacidos" 
+                    class="form-control mt-1"
+                >
+
+                <input 
+                    type="number" 
+                    placeholder="Hembras Nacidas" 
+                    class="form-control mt-1"
+                >
+
+                <input 
+                    type="number" 
+                    placeholder="Machos Abortados" 
+                    class="form-control mt-1"
+                >
+
+                <input 
+                    type="number" 
+                    placeholder="Hembras Abortadas"
+                    class="form-control mt-1"
+                >
+
+                <select class="form-control mt-1" placeholder="Estado">
+                    <option value="1">fecundado</option>
+                    <option value="2">no fecundado</option>
+                    <option value="3">finalizado</option>
+                    <option value="3">abortado</option>
+                </select>
+
+                <textarea name="" id="" class="form-control mt-1" placeholder="Notas"></textarea>
+
+            </div>
+
+            <button type="submit" class="sqr_rds mt-1" style="display: flex; margin: 0; padding: 0; background-color: transparent; border: 0px transparent;" ><img src="/assets/icons/save_disk.png" alt="" class="sqr_rds" style="width: 5rem; height: 5rem;"></button>
+        
+</form>
+

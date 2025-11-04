@@ -1,0 +1,21 @@
+services:
+  angular-app:
+    container_name: angular-dev
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "4200:4200"
+    volumes:
+      - .:/home/angular/app
+    working_dir: /home/angular/app
+    environment:
+      - NODE_ENV=development
+      - NG_CLI_ANALYTICS=false
+    tty: true
+    command: ng serve --host 0.0.0.0
+    user: root
+
+
+
+
