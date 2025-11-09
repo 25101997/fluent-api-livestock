@@ -22,6 +22,7 @@ namespace Domain.Entities
         public AnimalOrigin? Origin { get; set; }
         public AnimalStatus? Status { get; set; }
         public AnimalStage? Stage { get; set; }
+
     }
 
     public class AnimalOrigin

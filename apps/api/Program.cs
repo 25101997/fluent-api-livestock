@@ -19,8 +19,13 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Inyección de dependencias
+// Animal
 builder.Services.AddScoped<IAnimalRepository, AnimalRepository>();
 builder.Services.AddScoped<AnimalService>();
+
+// Animal Reproductive Record
+builder.Services.AddScoped<IAnimalReproductiveRecordRepository, AnimalReproductiveRecordRepository>();
+builder.Services.AddScoped<AnimalReproductiveRecordService>();
 
 var app = builder.Build();
 

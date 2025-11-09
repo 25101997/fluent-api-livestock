@@ -10,6 +10,7 @@ namespace Application.Mapping
         {
             // Request → Entidad
             CreateMap<AnimalCreateDto, Animal>();
+            
             CreateMap<AnimalUpdateDto, Animal>();
 
             // Entidad → Response

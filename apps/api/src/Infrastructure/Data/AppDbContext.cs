@@ -11,6 +11,7 @@ namespace Infrastructure.Data
         public DbSet<AnimalOrigin> AnimalOrigins => Set<AnimalOrigin>();
         public DbSet<AnimalStatus> AnimalStatuses => Set<AnimalStatus>();
         public DbSet<AnimalStage> AnimalStages => Set<AnimalStage>();
+        public DbSet<AnimalReproductiveRecord> AnimalReproductiveRecords => Set<AnimalReproductiveRecord>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
