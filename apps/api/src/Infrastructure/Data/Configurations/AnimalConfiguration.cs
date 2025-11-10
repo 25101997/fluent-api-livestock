@@ -43,23 +43,23 @@ namespace Infrastructure.Data.Configurations
 
             // Relaciones
             builder.HasOne(a => a.Origin)
-                .WithMany(o => o.Animals)
+                .WithMany()
                 .HasForeignKey(a => a.OriginId) // 🔹 especifica la FK correcta
                 .HasConstraintName("fk_origin")
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(a => a.Status)
-                .WithMany(s => s.Animals)
+                .WithMany()
                 .HasForeignKey(a => a.StatusId) // 🔹 especifica la FK correcta
                 .HasConstraintName("fk_status")
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(a => a.Stage)
-                .WithMany(st => st.Animals)
+                .WithMany()
                 .HasForeignKey(a => a.StageId) // 🔹 especifica la FK correcta
                 .HasConstraintName("fk_stage")
                 .OnDelete(DeleteBehavior.Restrict);
-
+                //.WithMany(st => st.Animals)
         }
     }
 }

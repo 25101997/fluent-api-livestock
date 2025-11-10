@@ -3,9 +3,9 @@ namespace Application.DTOs
     public class AnimalReadDto
     {
         public int Id { get; set; }
-        public string Origin { get; set; } = string.Empty;
-        public string Status { get; set; } = string.Empty;
-        public string Stage { get; set; } = string.Empty;
+        public AnimalOriginReadDto? Origin { get; set; }
+        public AnimalStatusReadDto? Status { get; set; }
+        public AnimalStageReadDto? Stage { get; set; }
         public string Breed { get; set; } = string.Empty;
         public string Sex { get; set; } = string.Empty;
         public DateTime BirthDate { get; set; }

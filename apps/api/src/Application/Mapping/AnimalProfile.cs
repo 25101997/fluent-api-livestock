@@ -14,10 +14,16 @@ namespace Application.Mapping
             CreateMap<AnimalUpdateDto, Animal>();
 
             // Entidad → Response
-            CreateMap<Animal, AnimalReadDto>()
-                .ForMember(dest => dest.Origin, opt => opt.MapFrom(src => src.Origin!.Name))
-                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status!.Name))
-                .ForMember(dest => dest.Stage, opt => opt.MapFrom(src => src.Stage!.Name));
+            CreateMap<Animal, AnimalReadDto>();
+
+            CreateMap<AnimalOrigin, AnimalOriginReadDto>();
+            CreateMap<AnimalStatus, AnimalStatusReadDto>();
+            CreateMap<AnimalStage, AnimalStageReadDto>();
+
+
+            //.ForMember(dest => dest.Origin, opt => opt.MapFrom(src => src.Origin!.Name))
+            //.ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status!.Name))
+            //.ForMember(dest => dest.Stage, opt => opt.MapFrom(src => src.Stage!.Name))
         }
     }
 }

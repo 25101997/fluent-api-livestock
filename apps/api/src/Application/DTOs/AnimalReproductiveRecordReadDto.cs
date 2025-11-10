@@ -3,8 +3,6 @@ namespace Application.DTOs
     public class AnimalReproductiveRecordReadDto
     {
         public int Id { get; set; }
-        public int MotherId { get; set; }
-        public int FatherId { get; set; }
         public AnimalReadDto? Mother { get; set; }
         public AnimalReadDto? Father { get; set; }
         public string Status { get; set; } = string.Empty;
