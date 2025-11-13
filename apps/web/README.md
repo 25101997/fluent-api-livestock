@@ -1,3 +1,5 @@
+docker run -it --rm -v "$PWD":/app -u $(id -u):$(id -g) -w /app -p 4200:4200 livestock-fe-angular-app:latest sh
+
 # TempFe
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.16.

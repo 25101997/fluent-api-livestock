@@ -25,8 +25,13 @@ export class AnimalListComponent implements OnInit {
   constructor(private animalService: AnimalService) {}
 
   ngOnInit(): void {
-    this.animals = this.animalService.getAll();
-    this.applyFilters();
+    this.animalService.getAll().subscribe({
+      next: (data) => {
+        this.animals = data;
+        this.applyFilters();
+      },
+      error: (err) => console.error('Error al cargar animales:', err)
+    });
   }
 
   // Dispara la búsqueda manual (botón o Enter)
