@@ -16,6 +16,8 @@ namespace Infrastructure.Data.Configurations
             builder.Property(a => a.OriginId).HasColumnName("origin_id").IsRequired();
             builder.Property(a => a.StatusId).HasColumnName("status_id").IsRequired();
             builder.Property(a => a.StageId).HasColumnName("stage_id").IsRequired();
+            builder.Property(a => a.BreedBId).HasColumnName("breed_id").IsRequired();
+            builder.Property(a => a.ProductionUseId).HasColumnName("production_use_id").IsRequired();
             builder.Property(a => a.LitterId).HasColumnName("litter_id");
 
             builder.Property(a => a.Sex)
@@ -27,6 +29,16 @@ namespace Infrastructure.Data.Configurations
                 .HasColumnName("breed")
                 .HasMaxLength(100)
                 .IsRequired();
+
+            builder.Property(a => a.Breed)
+                .HasColumnName("breed")
+                .HasMaxLength(100)
+                .IsRequired();
+
+            builder.Property(a => a.IsCastrated)
+                .HasColumnName("is_castrated")
+                .IsRequired()
+                .HasDefaultValue(false);
 
             builder.Property(a => a.Weight)
                 .HasColumnName("weight")
@@ -65,6 +77,18 @@ namespace Infrastructure.Data.Configurations
                 .HasConstraintName("fk_stage")
                 .OnDelete(DeleteBehavior.Restrict);
                 //.WithMany(st => st.Animals)
+            
+            builder.HasOne(a => a.BreedB)
+                .WithMany()
+                .HasForeignKey(a => a.BreedBId)
+                .HasConstraintName("fk_breed")
+                .OnDelete(DeleteBehavior.SetNull);
+        
+            builder.HasOne(a => a.ProductionUse)
+                .WithMany()
+                .HasForeignKey(a => a.ProductionUseId)
+                .HasConstraintName("fk_production_use")
+                .OnDelete(DeleteBehavior.SetNull);
             
             builder.HasOne(a => a.Litter)
                 .WithMany()

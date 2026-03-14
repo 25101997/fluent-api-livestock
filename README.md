@@ -16,3 +16,33 @@ git push -u origin main
 git remote add origin https://github.com/25101997/fluent-api-livestock.git
 git branch -M main
 git push -u origin main
+
+
+git remote set-url origin https://github.com/25101997/biblioteca-escolar.git
+
+git remote -v
+
+git branch -M main
+git push -u origin main
+
+
+git checkout main
+git pull origin main
+git checkout -b dev
+
+
+git checkout dev
+git pull origin dev
+git add .
+git commit -m "Added new edits"
+git push origin dev
+
+
+git checkout dev
+git pull origin dev
+git push origin dev
+
+git checkout main
+git pull origin main
+git merge dev
+git push origin main

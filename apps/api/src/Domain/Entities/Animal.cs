@@ -8,12 +8,15 @@ namespace Domain.Entities
         public int OriginId { get; set; }
         public int StatusId { get; set; }
         public int StageId { get; set; }
+        public int? BreedBId { get; set; }
+        public int? ProductionUseId { get; set; }
         public int? LitterId { get; set; }
 
         // Atributos descriptivos
         public string Sex { get; set; } = string.Empty;
         public string Breed { get; set; } = string.Empty;
         public decimal? Weight { get; set; }
+        public bool IsCastrated { get; set; }
 
         // Fechas
         public DateTime BirthDate { get; set; }
@@ -24,6 +27,8 @@ namespace Domain.Entities
         public AnimalOrigin? Origin { get; set; }
         public AnimalStatus? Status { get; set; }
         public AnimalStage? Stage { get; set; }
+        public AnimalBreed? BreedB { get; set; }
+        public AnimalProductionUse? ProductionUse { get; set; }
         public AnimalReproductiveRecord? Litter { get; set; }
     }
 
@@ -44,4 +49,17 @@ namespace Domain.Entities
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
     }
+
+    public class AnimalProductionUse
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } = string.Empty;
+    }
+
+    public class AnimalBreed
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } = string.Empty;
+    }
+    
 }

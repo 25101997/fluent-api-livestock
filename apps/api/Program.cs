@@ -50,6 +50,14 @@ builder.Services.AddScoped<AnimalStageService>();
 builder.Services.AddScoped<IAnimalOriginRepository, AnimalOriginRepository>();
 builder.Services.AddScoped<AnimalOriginService>();
 
+// Animal Breed
+builder.Services.AddScoped<IAnimalBreedRepository, AnimalBreedRepository>();
+builder.Services.AddScoped<AnimalBreedService>();
+
+// Animal Production Use
+builder.Services.AddScoped<IAnimalProductionUseRepository, AnimalProductionUseRepository>();
+builder.Services.AddScoped<AnimalProductionUseService>();
+
 // Animal Reproductive Record
 builder.Services.AddScoped<IAnimalReproductiveRecordRepository, AnimalReproductiveRecordRepository>();
 builder.Services.AddScoped<AnimalReproductiveRecordService>();

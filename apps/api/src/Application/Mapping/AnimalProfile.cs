@@ -19,6 +19,8 @@ namespace Application.Mapping
             CreateMap<AnimalOrigin, AnimalOriginReadDto>();
             CreateMap<AnimalStatus, AnimalStatusReadDto>();
             CreateMap<AnimalStage, AnimalStageReadDto>();
+            CreateMap<AnimalBreed, AnimalBreedReadDto>();
+            CreateMap<AnimalProductionUse, AnimalProductionUseReadDto>();
 
             //.ForMember(dest => dest.Origin, opt => opt.MapFrom(src => src.Origin!.Name))
             //.ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status!.Name))

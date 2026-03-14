@@ -12,6 +12,8 @@ namespace Infrastructure.Data
         public DbSet<AnimalOrigin> AnimalOrigins => Set<AnimalOrigin>();
         public DbSet<AnimalStatus> AnimalStatuses => Set<AnimalStatus>();
         public DbSet<AnimalStage> AnimalStages => Set<AnimalStage>();
+        public DbSet<AnimalProductionUse> AnimalProductionUses => Set<AnimalProductionUse>();
+        public DbSet<AnimalBreed> AnimalBreeds => Set<AnimalBreed>();
         public DbSet<AnimalReproductiveRecord> AnimalReproductiveRecords => Set<AnimalReproductiveRecord>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -25,6 +27,10 @@ namespace Infrastructure.Data
                 .Navigation(a => a.Status).AutoInclude();
             modelBuilder.Entity<Animal>()
                 .Navigation(a => a.Stage).AutoInclude();
+            modelBuilder.Entity<Animal>()
+                .Navigation(a => a.BreedB).AutoInclude();
+            modelBuilder.Entity<Animal>()
+                .Navigation(a => a.ProductionUse).AutoInclude();
 
             // 🔹 AutoInclude para AnimalReproductiveRecord
             modelBuilder.Entity<AnimalReproductiveRecord>()
