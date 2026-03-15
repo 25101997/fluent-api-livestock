@@ -2,11 +2,25 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'livestock', pathMatch: 'full' },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
   {
-    path: 'livestock',
+    path: 'home',
     loadChildren: () =>
-      import('./features/livestock/livestock.module').then(m => m.LivestockModule)
+      import('./features/home/home.module').then(m => m.HomeModule)
+  },
+  {
+    path: 'animal',
+    loadChildren: () =>
+      import('./features/animal/animal.module').then(m => m.AnimalModule)
+  },
+  {
+    path: 'litter',
+    loadChildren: () =>
+      import('./features/litter/litter.module').then(m => m.LitterModule)
+  },
+  {
+    path: '**',
+    redirectTo: 'home'
   }
 ];
 
