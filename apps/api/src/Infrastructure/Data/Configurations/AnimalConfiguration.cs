@@ -16,8 +16,8 @@ namespace Infrastructure.Data.Configurations
             builder.Property(a => a.OriginId).HasColumnName("origin_id").IsRequired();
             builder.Property(a => a.StatusId).HasColumnName("status_id").IsRequired();
             builder.Property(a => a.StageId).HasColumnName("stage_id").IsRequired();
-            builder.Property(a => a.BreedBId).HasColumnName("breed_id").IsRequired();
-            builder.Property(a => a.ProductionUseId).HasColumnName("production_use_id").IsRequired();
+            builder.Property(a => a.BreedBId).HasColumnName("breed_id");
+            builder.Property(a => a.ProductionUseId).HasColumnName("production_use_id");
             builder.Property(a => a.LitterId).HasColumnName("litter_id");
 
             builder.Property(a => a.Sex)

@@ -27,10 +27,12 @@ namespace Infrastructure.Data
                 .Navigation(a => a.Status).AutoInclude();
             modelBuilder.Entity<Animal>()
                 .Navigation(a => a.Stage).AutoInclude();
+            
+            /*
             modelBuilder.Entity<Animal>()
                 .Navigation(a => a.BreedB).AutoInclude();
             modelBuilder.Entity<Animal>()
-                .Navigation(a => a.ProductionUse).AutoInclude();
+                .Navigation(a => a.ProductionUse).AutoInclude();*/
 
             // 🔹 AutoInclude para AnimalReproductiveRecord
             modelBuilder.Entity<AnimalReproductiveRecord>()
