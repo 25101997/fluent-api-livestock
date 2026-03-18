@@ -99,7 +99,6 @@ export class AnimalListComponent implements OnInit {
     this.applyFilters();
   }
 
-
   getAgeInDays(birthDate: string): number {
     const birth = new Date(birthDate);
     const today = new Date();

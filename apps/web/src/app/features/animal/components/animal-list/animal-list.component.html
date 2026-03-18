@@ -138,6 +138,18 @@
             </span>  
           </th>
 
+          <th><!-- columna castrado -->
+            <span class="center_x_y">
+              Castrado
+              <label class="center_x_y">
+                <input type="checkbox" hidden (click)="sortBy('status')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up" viewBox="0 0 16 16" class="icon">
+                  <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5"/>
+                </svg>
+              </label>
+            </span>  
+          </th>
+
           <th>Acciones</th>
 
         </tr>
@@ -154,10 +166,11 @@
           <td>{{ animal.litter?.id }}</td>
           <td>{{ animal.status?.name }}</td>
           <td>{{ animal.stage?.name }}</td>
+          <td>{{ animal.isCastrated ? '✔️' : '✖️' }}</td>
           <td>
-            <button [routerLink]="['/livestock/animal-update', animal.id]" class="btn btn__primary__outline">Editar</button>
+            <button [routerLink]="['/animal/update', animal.id]" class="btn btn__primary__outline">Editar</button>
             <samp></samp>
-            <button [routerLink]="['/livestock/edit', animal.id]" class="btn btn__primary__outline">Detalles</button>
+            <button class="btn btn__primary__outline">Detalles</button>
           </td>        
         </tr>
       </tbody>

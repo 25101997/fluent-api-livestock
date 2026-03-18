@@ -7,7 +7,9 @@ import { AnimalRead,
          AnimalWrite, 
          AnimalOrigin, 
          AnimalStatus, 
-         AnimalStage } from '../../models/animal.model';
+         AnimalStage, 
+         AnimalBreed,
+         AnimalProductionUse} from '../../models/animal.model';
 
 // all about Litter
 import { LitterService } from 'src/app/features/litter/services/litter.service';
@@ -35,6 +37,8 @@ export class AnimalAddComponent implements OnInit {
   animalStatuses: AnimalStatus[] = [];
   animalOrigins: AnimalOrigin[] = [];
   animalStages: AnimalStage[] = [];
+  animalBreeds: AnimalBreed[] = [];
+  animalProductionUses: AnimalProductionUse[] = [];
   animalForm!: FormGroup;
 
   // variables para mostrar campos en el html
@@ -113,6 +117,8 @@ export class AnimalAddComponent implements OnInit {
                 statuses: this.animalService.getAllStatuses(), 
                 origins: this.animalService.getAllOrigins(), 
                 stages: this.animalService.getAllStages(), 
+                breeds: this.animalService.getAllBreeds(),
+                uses: this.animalService.getAllProductionUses(),
                 litters: this.litterService.getAll() 
     }).subscribe({ 
       next:(data) => { 
@@ -120,6 +126,8 @@ export class AnimalAddComponent implements OnInit {
                 this.animalStatuses = data.statuses; 
                 this.animalOrigins = data.origins; 
                 this.animalStages = data.stages; 
+                this.animalBreeds = data.breeds; 
+                this.animalProductionUses = data.uses;
                 this.litters = data.litters; 
       },error:(err) => console.error('Error al cargar datos:', err)
     });

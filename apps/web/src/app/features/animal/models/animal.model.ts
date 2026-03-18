@@ -15,14 +15,27 @@ export interface AnimalStage {
   name: string;
 }
 
+export interface AnimalBreed {
+  id: number;
+  name: string;
+}
+
+export interface AnimalProductionUse {
+  id: number;
+  name: string;
+}
+
 export interface AnimalRead {
   id: number;
   origin?: AnimalOrigin;
   status?: AnimalStatus;
   stage?: AnimalStage;
   litter?: LitterRead;
+  breedB?: AnimalBreed;
+  productionUse?: AnimalProductionUse;
   breed: string;
   sex: string;
+  isCastrated: boolean,
   weight: number;
   birthDate: string;      // Angular lo trata como string ISO
   created: string;
@@ -45,7 +58,10 @@ export interface AnimalUpdate {
   originId: number;
   statusId: number;
   stageId: number;
+  breedId: number;
+  productionUseId: number;
   litterId?: number;
+  isCastrated: boolean;
   weight: number;
   sex: string;
   breed: string;

@@ -75,6 +75,36 @@
             <input type="date" id="birthDate" formControlName="birthDate"/>
             <label for="birthDate">Fecha de nacimiento</label>
         </div>
+
+    <div class="floating-group" >
+            <select formControlName="breedId">
+                <ng-container *ngFor="let breed of animalBreeds">
+                    <option [value]="breed.id">
+                        {{ breed.name }}
+                    </option>
+                </ng-container>
+            </select>
+            <label for="statusId">Raza</label>
+        </div>
+    
+    <!-- campo uso -->
+        <div class="floating-group" >
+            <select formControlName="productionUseId">
+                <ng-container *ngFor="let use of animalProductionUses">
+                    <option [value]="use.id">
+                        {{ use.name }}
+                    </option>
+                </ng-container>
+            </select>
+            <label for="statusId">Uso</label>
+        </div>
+
+     <!-- campo es castrado -->
+        <div class="floating-group">
+            <input type="checkbox" formControlName="castrated">
+            <label for="statusId">Castrado</label>
+        </div>
+
     </div>
     
     <!-- boton para guardar cambios -->

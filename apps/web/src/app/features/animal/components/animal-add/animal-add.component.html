@@ -95,7 +95,39 @@
             <input type="text" maxlength="25" formControlName="breed"/>
             <label for="breed">Raza</label>
         </div>
+
+        <div class="floating-group" *ngIf="showBreedField">
+            <select formControlName="">
+                <ng-container *ngFor="let breed of animalBreeds">
+                    <option [value]="breed.id">
+                        {{ breed.name }}
+                    </option>
+                </ng-container>
+            </select>
+            <label for="statusId">Raza</label>
+        </div>
+    
+    <!-- campo uso -->
+        <div class="floating-group" *ngIf="showBreedField">
+            <select formControlName="">
+                <ng-container *ngFor="let use of animalProductionUses">
+                    <option [value]="use.id">
+                        {{ use.name }}
+                    </option>
+                </ng-container>
+            </select>
+            <label for="statusId">Uso</label>
+        </div>
+
+     <!-- campo es castrado -->
+        <div class="floating-group" *ngIf="showBreedField">
+            <input type="checkbox" [value]="">
+            <label for="statusId">Castrado</label>
+        </div>
+
+
     </div><!--end class="form_section" -->
+    
     
     <!-- boton para guardar cambios -->
     <button type="submit" 

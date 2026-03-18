@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-
 // Importar librerias de @angular/core
-import { OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
+import { forkJoin } from 'rxjs';
 
 // Importar librerias para trabajar con rutas
 import { ActivatedRoute, Router } from '@angular/router';
@@ -12,11 +12,12 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 // Importar los servicios necesarios
 import { AnimalService } from '../../services/animal.service';
 
-import { AnimalRead, 
-         AnimalWrite, 
+import { AnimalRead,
          AnimalOrigin, 
          AnimalStatus, 
          AnimalStage,
+         AnimalBreed,
+         AnimalProductionUse,
          AnimalUpdate } from '../../models/animal.model';
 
 // all about Litter
@@ -37,14 +38,24 @@ export class AnimalUpdateComponent implements OnInit {
     isEditMode: boolean = false;
     existId: boolean = false;
     
-    // datos del animal
+  // datos del animal
     animalForm!: FormGroup;
     animalData: AnimalRead | null = null;
     animalId: number = 0;
     animalStatuses: AnimalStatus[] = [];
     animalOrigins: AnimalOrigin[] = [];
     animalStages: AnimalStage[] = [];
-    
+    animalBreeds: AnimalBreed[] = [];
+    animalProductionUses: AnimalProductionUse[] = [];
+  
+  // variables para mostrar campos en el html
+    showLitterIdField: Boolean = false;
+    showBirthdayField: Boolean = false;
+    showStageField: Boolean = false;
+    showSexField: Boolean = false;
+    showWeightField: Boolean = false;
+    showBreedField: Boolean = false;
+
   constructor(
       private animalService: AnimalService,
       private litterService: LitterService,
@@ -65,6 +76,9 @@ private initForm(): void {
     litterId: [{ value: null, disabled: true }, Validators.required],
     statusId: [0, Validators.required],
     stageId: [0, Validators.required],
+    breedId: [null],
+    productionUseId: [null],
+    castrated: [null],
     weight: [1, [
       Validators.required,
       Validators.min(1),
@@ -81,37 +95,31 @@ private initForm(): void {
     const idURL = this.route.snapshot.paramMap.get('id');
     if (idURL) {
       this.animalId = Number(idURL);
+      this.loadServices();
       this.getData();
     }
   }  
 
+  private loadServices(): void{
+    forkJoin({  
+      statuses: this.animalService.getAllStatuses(), 
+      origins: this.animalService.getAllOrigins(), 
+      stages: this.animalService.getAllStages(), 
+      breeds: this.animalService.getAllBreeds(),
+      uses: this.animalService.getAllProductionUses(),
+    }).subscribe({ 
+      next:(data) => {             
+        this.animalStatuses = data.statuses; 
+        this.animalOrigins = data.origins; 
+        this.animalStages = data.stages; 
+        this.animalBreeds = data.breeds; 
+        this.animalProductionUses = data.uses;
+      },error:(err) => console.error('Error al cargar datos:', err)
+    });
+  }
+
   private getData(): void {
     if (!this.animalId) return;
-
-    // Estados
-    this.animalService.getAllStatuses().subscribe({
-      next: (data) => {
-        this.animalStatuses = data;
-      },
-      error: (err) => console.error('Error al cargar estados:', err)
-    });
-
-    // Origenes
-    this.animalService.getAllOrigins().subscribe({
-      next: (data) => {
-        this.animalOrigins = data;
-      },
-      error: (err) => console.error('Error al cargar origines:', err)
-    });
-
-    // Estapas
-    this.animalService.getAllStages().subscribe({
-      next: (data) => {
-        this.animalStages = data;
-      },
-      error: (err) => console.error('Error al cargar estapas:', err)
-    });
-
     // Obtener animal por id
     this.animalService.getById(this.animalId).subscribe({
       next: (data) => {
@@ -125,6 +133,9 @@ private initForm(): void {
           litterId: data.litter?.id ?? null,
           statusId: data.status?.id ?? 0,
           stageId: data.stage?.id ?? 0,
+          breedId: data.breedB?.id ?? 0,
+          productionUseId: data.productionUse?.id ?? 0,
+          castrated: data.isCastrated,
           weight: data.weight,
           sex: data.sex,
           breed: data.breed,
@@ -185,7 +196,10 @@ private initForm(): void {
                                       originId: Number(raw.originId),
                                       statusId: Number(raw.statusId),
                                       stageId: Number(raw.stageId),
+                                      breedId: Number(raw.breedId),
+                                      productionUseId: Number(raw.productionUseId),
                                       litterId: raw.litterId,
+                                      isCastrated: raw.castrated,
                                       weight: Number(this.animalForm.value.weight),
                                       sex: raw.sex,
                                       breed: raw.breed,
@@ -195,7 +209,7 @@ private initForm(): void {
       if(formData.litterId){
         formData.litterId = Number(raw.litterId)
       }
-
+      
       this.animalService.update(this.animalId, formData).subscribe(() => {
         console.log('Datos enviados:', formData);
         this.goBack();

@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AnimalRead } from '../models/animal.model';
-import { AnimalWrite, AnimalUpdate } from '../models/animal.model';
-import { AnimalStatus } from '../models/animal.model';
-import { AnimalOrigin } from '../models/animal.model';
-import { AnimalStage } from '../models/animal.model';
+import { AnimalRead, AnimalWrite, AnimalUpdate } from '../models/animal.model';
+import { AnimalStatus, AnimalOrigin, AnimalStage, AnimalBreed, AnimalProductionUse } from '../models/animal.model';
+
+import { environment } from 'src/environments/environment.dev';
 
 @Injectable({ providedIn: 'root' })
 export class AnimalService {
 
-  private ip = '192.168.1.196';
-  private port = '8080'
+  private ip = environment.ip;
+  private port = environment.port
 
   private apiUrl = `http://${this.ip}:${this.port}/api/Animal`;
 
@@ -20,6 +19,10 @@ export class AnimalService {
   private apiUrlAnimalOrigin = `http://${this.ip}:${this.port}/api/AnimalOrigin`;
   
   private apiUrlAnimalStage = `http://${this.ip}:${this.port}/api/AnimalStage`;
+
+  private apiUrlAnimalBreed = `http://${this.ip}:${this.port}/api/AnimalBreed`;
+
+  private apiUrlAnimalProductionUse = `http://${this.ip}:${this.port}/api/AnimalProductionUse`;
 
   constructor(private http: HttpClient) {}
 
@@ -36,6 +39,14 @@ export class AnimalService {
   /** Obtener todos las etapas */
   getAllStages(): Observable<AnimalStage[]> {
       return this.http.get<AnimalStatus[]>(this.apiUrlAnimalStage);
+  }
+
+  getAllBreeds(): Observable<AnimalBreed[]> {
+      return this.http.get<AnimalBreed[]>(this.apiUrlAnimalBreed);
+  }
+
+  getAllProductionUses(): Observable<AnimalProductionUse[]> {
+      return this.http.get<AnimalProductionUse[]>(this.apiUrlAnimalProductionUse);
   }
 
   /** Obtener todos los animales */
