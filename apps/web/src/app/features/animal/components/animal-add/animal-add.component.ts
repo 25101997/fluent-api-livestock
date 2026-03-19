@@ -48,6 +48,8 @@ export class AnimalAddComponent implements OnInit {
   showSexField: Boolean = false;
   showWeightField: Boolean = false;
   showBreedField: Boolean = false;
+  showProductionUseField: Boolean = false;
+  showCastratedField: Boolean = false;
 
   // Variables para validar si un cerdo nacido ya fue registrado
   availableMales: number = 0;
@@ -99,6 +101,7 @@ export class AnimalAddComponent implements OnInit {
         this.showSexField = true;
         this.showWeightField = true;
         this.showBreedField = true;
+        this.showProductionUseField = true;
         const start = new Date(this.todayString);
         const end = new Date(birthDate);
         this.ageInDays = this.daysBetween(start, end);
@@ -109,6 +112,15 @@ export class AnimalAddComponent implements OnInit {
     // Si el campo etapa cambia
     this.animalForm.get('stageId')?.valueChanges.subscribe((stageId: number | null) => {
       this.onStageChange(Number(stageId));
+    });
+
+    // Si el campo uso de produccion cambia
+    this.animalForm.get('productionUseId')?.valueChanges.subscribe((useId: number | null) => {
+      if(Number(useId) === 2 ){
+        this.showCastratedField = true;
+      }else{
+        this.showCastratedField = false;
+      }
     });
   }
 
@@ -140,6 +152,9 @@ export class AnimalAddComponent implements OnInit {
       litterId: [null],
       statusId: [0, Validators.required],
       stageId: [0, Validators.required],
+      breedBId: [null],
+      productionUseId: [null],
+      isCastrated: [null],
       weight: [null, [
         Validators.required,
         Validators.min(1),
@@ -158,7 +173,9 @@ export class AnimalAddComponent implements OnInit {
     this.animalForm.get('stageId')?.reset(null);
     this.animalForm.get('sex')?.reset(null);
     this.animalForm.get('weight')?.reset(null);
-    this.animalForm.get('breed')?.reset(null);
+    this.animalForm.get('breedBId')?.reset(null);
+    this.animalForm.get('productionUseId')?.reset(null);
+    this.animalForm.get('isCastrated')?.reset(null);
 
     // Resetear campos comunes
     this.showLitterIdField = false;
@@ -167,6 +184,8 @@ export class AnimalAddComponent implements OnInit {
     this.showSexField = false;
     this.showWeightField = false;
     this.showBreedField = false;
+    this.showProductionUseField = false;
+    this.showCastratedField = false;
 
     if (originId === 1) {
       // origin === nacido
@@ -195,9 +214,7 @@ export class AnimalAddComponent implements OnInit {
   }
 
   onLitterChange(litterId: number) {
-
     const litter = this.litters.find(l => l.id === litterId);
-
     if (!litter){
       this.showSexField = false;
       this.showWeightField = false;
@@ -333,6 +350,20 @@ export class AnimalAddComponent implements OnInit {
     }
 
     return false;
+  }
+
+
+  isUseValid(useId: number): boolean {
+
+    let isCastrated = this.animalForm.get('isCastrated')?.value
+
+    if(useId==1 && isCastrated){
+      return false
+    }else if(useId==2 && isCastrated){
+      return true
+    }
+
+    return true;
   }
 
 

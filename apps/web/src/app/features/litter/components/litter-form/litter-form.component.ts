@@ -181,7 +181,7 @@ export class LitterFormComponent {
                       originId: Number(madre.origin?.id),
                       statusId: Number(madre.status?.id),
                       stageId: stage.id,
-                      breedId: Number(madre.breedB?.id),
+                      breedBId: Number(madre.breedB?.id),
                       productionUseId: Number(madre.productionUse?.id),
                       isCastrated: madre.isCastrated,
                       sex: madre.sex,

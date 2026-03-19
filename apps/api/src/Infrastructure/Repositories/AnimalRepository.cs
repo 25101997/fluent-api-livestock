@@ -25,6 +25,7 @@ namespace Infrastructure.Repositories
 
         public async Task<Animal?> GetByIdAsync(int id) =>
             await _context.Animals
+                .Include(a => a.ProductionUse!)
                 .Include(a => a.Litter!)
                     .ThenInclude(l => l.Mother)
                 .Include(a => a.Litter!)

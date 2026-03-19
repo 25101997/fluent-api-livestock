@@ -127,6 +127,8 @@ private initForm(): void {
         this.isEditMode = true;
         this.animalData = data;
 
+        console.log('ger service id: ',data);
+
         this.animalForm.patchValue({
           id: data.id,
           originId: data.origin?.id ?? 0,
@@ -192,19 +194,19 @@ private initForm(): void {
       const raw = this.animalForm.getRawValue();
 
       const formData: AnimalUpdate = {
-                                      id: Number(this.animalData?.id),
-                                      originId: Number(raw.originId),
-                                      statusId: Number(raw.statusId),
-                                      stageId: Number(raw.stageId),
-                                      breedId: Number(raw.breedId),
-                                      productionUseId: Number(raw.productionUseId),
-                                      litterId: raw.litterId,
-                                      isCastrated: raw.castrated,
-                                      weight: Number(this.animalForm.value.weight),
-                                      sex: raw.sex,
-                                      breed: raw.breed,
-                                      birthDate: raw.birthDate
-                                    };
+                                        id: Number(this.animalData?.id),
+                                        originId: Number(raw.originId),
+                                        statusId: Number(raw.statusId),
+                                        stageId: Number(raw.stageId),
+                                        breedBId: Number(raw.breedId),
+                                        productionUseId: Number(raw.productionUseId),
+                                        litterId: raw.litterId,
+                                        isCastrated: raw.castrated,
+                                        weight: Number(this.animalForm.value.weight),
+                                        sex: raw.sex,
+                                        breed: raw.breed,
+                                        birthDate: raw.birthDate
+                                      };
 
       if(formData.litterId){
         formData.litterId = Number(raw.litterId)

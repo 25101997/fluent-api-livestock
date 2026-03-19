@@ -58,7 +58,7 @@ export interface AnimalUpdate {
   originId: number;
   statusId: number;
   stageId: number;
-  breedId: number;
+  breedBId: number;
   productionUseId: number;
   litterId?: number;
   isCastrated: boolean;
