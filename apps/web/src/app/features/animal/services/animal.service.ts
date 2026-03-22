@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AnimalRead, AnimalWrite, AnimalUpdate } from '../models/animal.model';
+import { AnimalRead, AnimalCreate, AnimalUpdate } from '../models/animal.model';
 import { AnimalStatus, AnimalOrigin, AnimalStage, AnimalBreed, AnimalProductionUse } from '../models/animal.model';
 
 import { environment } from 'src/environments/environment.dev';
@@ -58,8 +58,8 @@ export class AnimalService {
     return this.http.get<AnimalRead>(`${this.apiUrl}/${id}`);
   }
 
-  create(animal: AnimalWrite): Observable<AnimalWrite> {
-    return this.http.post<AnimalWrite>(this.apiUrl, animal);
+  create(animal: AnimalCreate): Observable<AnimalCreate> {
+    return this.http.post<AnimalCreate>(this.apiUrl, animal);
   }
 
   update(id: number, animal: AnimalUpdate): Observable<AnimalUpdate> {

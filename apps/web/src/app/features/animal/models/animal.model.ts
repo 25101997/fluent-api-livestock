@@ -35,22 +35,25 @@ export interface AnimalRead {
   productionUse?: AnimalProductionUse;
   breed: string;
   sex: string;
-  isCastrated: boolean,
+  isCastrated: boolean;
   weight: number;
   birthDate: string;      // Angular lo trata como string ISO
   created: string;
   updated: string;
 }
 
-export interface AnimalWrite {
+export interface AnimalCreate {
   originId: number;
   statusId: number;
   stageId: number;
+  breedBId: number;
+  productionUseId: number;
   litterId?: number;
+  isCastrated: boolean;
   weight: number;
   sex: string;
   breed: string;
-  birthDate: string
+  birthDate: string;
 }
 
 export interface AnimalUpdate {

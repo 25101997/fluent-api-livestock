@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { forkJoin } from 'rxjs';
 
+// Importar librerias para trabajar con rutas
+import { ActivatedRoute, Router } from '@angular/router';
+
 // all about Aninal
 import { AnimalService } from '../../services/animal.service';
 import { AnimalRead, 
-         AnimalWrite, 
+         AnimalCreate, 
          AnimalOrigin, 
          AnimalStatus, 
          AnimalStage, 
@@ -29,6 +32,7 @@ export class AnimalAddComponent implements OnInit {
       private animalService: AnimalService,
       private litterService: LitterService,
       private formBuilder: FormBuilder,
+      private router: Router,
   ) {}
 
   litters: LitterRead[] = [];
@@ -83,29 +87,28 @@ export class AnimalAddComponent implements OnInit {
       this.onLitterChange(Number(litterId));
     });
 
-    // Si el campo peso cambia
-    this.animalForm.get('weight')?.valueChanges.subscribe((weight: number | null) => {
-      if (!weight) {
-        this.previousWeight = null;
-        this.animalForm.get('weight')?.reset(null, { emitEvent: false });
-        return;
-      }
-      this.onWeightChange(Number(weight));
-    });
-
     // Si el campo fecha cambia
     this.animalForm.get('birthDate')?.valueChanges.subscribe((birthDate: Date | null) => {
       if(birthDate){
-        this.animalForm.get('stageId')?.reset(null);
+        this.onBirthDateChange(new Date(birthDate));
+      }
+    });
+
+    this.animalForm.get('sex')?.valueChanges.subscribe((sex: string | null) => {
+      this.onSexChange(String(sex));
+    });
+
+    // Si el campo uso de produccion cambia
+    this.animalForm.get('productionUseId')?.valueChanges.subscribe((useId: number | null) => {
+      if(useId){
         this.showStageField = true;
-        this.showSexField = true;
         this.showWeightField = true;
         this.showBreedField = true;
-        this.showProductionUseField = true;
-        const start = new Date(this.todayString);
-        const end = new Date(birthDate);
-        this.ageInDays = this.daysBetween(start, end);
-        console.log('age in days', this.ageInDays);
+        if(Number(useId) === 2 ){
+          this.showCastratedField = true;
+        }else{
+          this.showCastratedField = false;
+        }
       }
     });
 
@@ -114,13 +117,14 @@ export class AnimalAddComponent implements OnInit {
       this.onStageChange(Number(stageId));
     });
 
-    // Si el campo uso de produccion cambia
-    this.animalForm.get('productionUseId')?.valueChanges.subscribe((useId: number | null) => {
-      if(Number(useId) === 2 ){
-        this.showCastratedField = true;
-      }else{
-        this.showCastratedField = false;
+    // Si el campo peso cambia
+    this.animalForm.get('weight')?.valueChanges.subscribe((weight: number | null) => {
+      if (!weight) {
+        this.previousWeight = null;
+        this.animalForm.get('weight')?.reset(null, { emitEvent: false });
+        return;
       }
+      this.onWeightChange(Number(weight));
     });
   }
 
@@ -251,6 +255,23 @@ export class AnimalAddComponent implements OnInit {
     this.animalForm.get('birthDate')?.setValue(formatted);
   }
 
+  onBirthDateChange(birthDate: Date) {
+    if(birthDate){
+        this.animalForm.get('stageId')?.reset(null);
+        this.showSexField = true;
+        const start = new Date(this.todayString);
+        const end = new Date(birthDate);
+        this.ageInDays = this.daysBetween(start, end);
+        console.log('age in days', this.ageInDays);
+    }
+  }
+
+  onSexChange(sex: String){
+    if(sex){
+      this.showProductionUseField = true;
+    }
+  }
+
   onWeightChange(weight: number) {
     if(!(weight >= 1 && weight <= 1200)){
       this.animalForm.get('weight')?.setValue(this.previousWeight);
@@ -260,8 +281,10 @@ export class AnimalAddComponent implements OnInit {
   }
 
   onStageChange(stageId: number) {
-    if(stageId === 1){}
+    
   }
+
+
 
   daysBetween(date1: Date, date2: Date): number { 
     // Diferencia en milisegundos 
@@ -319,6 +342,8 @@ export class AnimalAddComponent implements OnInit {
   isStageValid(stageId: number): boolean {
 
     let sex = this.animalForm.get('sex')?.value
+    let uso = this.animalForm.get('productionUseId')?.value
+    let castrated = this.animalForm.get('isCastrated')?.value
 
     /* 
         Lactancia   0 - 21 dias   
@@ -334,22 +359,36 @@ export class AnimalAddComponent implements OnInit {
     const ageInDays = Number(this.ageInDays);
 
     if(stageId==1 && (ageInDays >= 0 && ageInDays <= 21)){
+      // nacimiento
       return true
     }else if(stageId==2 && (ageInDays >= 22 && ageInDays <= 30)){
+      // destete
       return true
     }else if(stageId==13 && (ageInDays >= 31 && ageInDays <= 60)){
+       // crecimiento
       return true
     }else if(stageId==3 && (Number(this.ageInDays) >= 61 && Number(this.ageInDays) <= 90)){
+      // preceba/preengorde
       return true
     }else if(stageId==7 && (Number(this.ageInDays) >= 91 && Number(this.ageInDays) <= 180)){
+      // ceba/engorde
       return true
-    }else if(stageId==4 && (Number(this.ageInDays) >= 181 && Number(this.ageInDays) <= 1800)){
+    }else if(stageId==15 && (Number(this.ageInDays) >= 150 && Number(this.ageInDays) <= 210)){
+      // pre-reproduccion / pubertad
       return true
-    }else if(stageId==5 && ageInDays >= 1800 ){
+    }else if(stageId==4 && (Number(this.ageInDays) >= 210 && Number(this.ageInDays) <= 1440) && !castrated){
+      // reproduccion
+      return true
+    }else if(stageId==5 && sex=='hembra' && Number(this.ageInDays)>150 ){
+      // gestacion
       return true
     }
 
     return false;
+  }
+
+  onUseChange(useId: number) {
+    console.log('use change')
   }
 
 
@@ -366,5 +405,60 @@ export class AnimalAddComponent implements OnInit {
     return true;
   }
 
+  onSubmit(): void {
+    if (this.animalForm.invalid) {
+      // Recorremos todos los controles 
+      Object.keys(this.animalForm.controls).forEach(key => { 
+        const control = this.animalForm.get(key);
+        if (control && control.invalid) { 
+          console.log(`❌ Control "${key}" inválido:`, control.errors); 
+        }  
+      });
+      this.animalForm.markAllAsTouched(); 
+      return; 
+    }else{
+      this.saveForm();
+    }  
+  }
+
+  /** Guardar un nuevo animal */
+  saveForm(): void {
+      
+    const raw = this.animalForm.getRawValue();
+
+    const formData: AnimalCreate = {
+                                      originId: Number(raw.originId),
+                                      statusId: Number(raw.statusId),
+                                      stageId: Number(raw.stageId),
+                                      breedBId: Number(raw.breedId),
+                                      productionUseId: Number(raw.productionUseId),
+                                      litterId: raw.litterId,
+                                      isCastrated: raw.castrated,
+                                      weight: Number(this.animalForm.value.weight),
+                                      sex: raw.sex,
+                                      breed: raw.breed,
+                                      birthDate: raw.birthDate
+                                    };
+
+    if(formData.litterId){
+      formData.litterId = Number(raw.litterId)
+    }
+    
+    this.animalService.create(formData).subscribe(() => {
+      console.log('Datos enviados:', formData);
+      this.goBack();
+    });
+  }
+  
+  /** Navega hacia atrás */
+  goBack(): void {
+      this.router.navigate(['/livestock/animal-list']);
+  }
 
 }
+
+// elegir procedencia
+// elegir fecha de nacimieto
+// elegir uso
+// elegir sexo
+// elegir todos los demas

@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 
 // all about Aninal
 import { AnimalService } from '../../services/animal.service';
-import { AnimalRead, AnimalWrite, AnimalUpdate } from '../../models/animal.model';
+import { AnimalRead, AnimalCreate, AnimalUpdate } from '../../models/animal.model';
 import { AnimalOrigin, AnimalStatus, AnimalStage } from '../../models/animal.model';
 
 // all about Litter
@@ -232,11 +232,14 @@ export class AnimalFormComponent implements OnInit {
 
     } else {
 
-      const formData: AnimalWrite = {
+      const formData: AnimalCreate = {
                                       originId: Number(this.animalForm.value.originId),
                                       statusId: Number(1),
                                       stageId: Number(this.animalForm.value.stageId),
                                       litterId: this.animalForm.value.litterId,
+                                      breedBId: 1,
+                                      productionUseId: 1,
+                                      isCastrated: false,
                                       weight: Number(this.animalForm.value.weight),
                                       sex: this.animalForm.value.sex,
                                       breed: this.animalForm.value.breed,

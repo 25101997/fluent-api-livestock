@@ -1,4 +1,4 @@
-<form class="form_container" [formGroup]="animalForm">
+<form class="form_container" [formGroup]="animalForm" (ngSubmit)="onSubmit()">
 
   <h2 class="form_title"> Agregar Registro </h2>
 
@@ -49,18 +49,6 @@
             </div>
         </div>
 
-    <!-- campo etapa -->
-        <div class="floating-group" *ngIf="showStageField">
-            <select formControlName="stageId">
-                <ng-container *ngFor="let stage of animalStages">
-                    <option [value]="stage.id"  [disabled]="!isStageValid(stage.id)" >
-                        {{ stage.name }}
-                    </option>
-                </ng-container>
-            </select>
-            <label for="statusId">Etapa</label>
-        </div>
-
     <!-- campo sexo -->
         <div class="floating-group" *ngIf="showSexField">
             <select formControlName="sex">
@@ -68,6 +56,30 @@
                 <option value="hembra" [disabled]="availableFemales <= 0">Hembra</option>
             </select>
             <label for="sex">Sexo</label>
+        </div>
+        
+    <!-- campo uso -->
+        <div class="floating-group" *ngIf="showProductionUseField">
+            <select formControlName="productionUseId">
+                <ng-container *ngFor="let use of animalProductionUses">
+                    <option [value]="use.id" [disabled]="!isUseValid(use.id)">
+                        {{ use.name }}
+                    </option>
+                </ng-container>
+            </select>
+            <label for="productionUseId">Uso</label>
+        </div>
+
+    <!-- campo etapa -->
+        <div class="floating-group" *ngIf="showStageField">
+            <select formControlName="stageId">
+                <ng-container *ngFor="let stage of animalStages">
+                    <option [value]="stage.id"  [disabled]="!isStageValid(stage.id)" >
+                        {{ stage.id }} - {{ stage.name }}
+                    </option>
+                </ng-container>
+            </select>
+            <label for="statusId">Etapa</label>
         </div>
 
     <!-- campo estado -->
@@ -89,18 +101,6 @@
                 </ng-container>
             </select>
             <label for="statusId">Raza</label>
-        </div>
-    
-    <!-- campo uso -->
-        <div class="floating-group" *ngIf="showProductionUseField">
-            <select formControlName="productionUseId">
-                <ng-container *ngFor="let use of animalProductionUses">
-                    <option [value]="use.id" [disabled]="!isUseValid(use.id)">
-                        {{ use.name }}
-                    </option>
-                </ng-container>
-            </select>
-            <label for="productionUseId">Uso</label>
         </div>
 
      <!-- campo es castrado -->
