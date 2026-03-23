@@ -93,7 +93,7 @@
     
     <!-- campo raza -->
         <div class="floating-group" *ngIf="showBreedField">
-            <select formControlName="breedBId">
+            <select formControlName="breedId">
                 <ng-container *ngFor="let breed of animalBreeds">
                     <option [value]="breed.id">
                         {{ breed.name }}

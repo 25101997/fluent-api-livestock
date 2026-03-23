@@ -100,16 +100,7 @@ export class AnimalAddComponent implements OnInit {
 
     // Si el campo uso de produccion cambia
     this.animalForm.get('productionUseId')?.valueChanges.subscribe((useId: number | null) => {
-      if(useId){
-        this.showStageField = true;
-        this.showWeightField = true;
-        this.showBreedField = true;
-        if(Number(useId) === 2 ){
-          this.showCastratedField = true;
-        }else{
-          this.showCastratedField = false;
-        }
-      }
+      if(useId){this.onProductionUseChange(Number(useId));}
     });
 
     // Si el campo etapa cambia
@@ -156,7 +147,7 @@ export class AnimalAddComponent implements OnInit {
       litterId: [null],
       statusId: [0, Validators.required],
       stageId: [0, Validators.required],
-      breedBId: [null],
+      breedId: [null],
       productionUseId: [null],
       isCastrated: [null],
       weight: [null, [
@@ -280,11 +271,18 @@ export class AnimalAddComponent implements OnInit {
     }
   }
 
-  onStageChange(stageId: number) {
-    
+  onStageChange(useId: number) {
+    if(useId){
+      this.showStageField = true;
+      this.showWeightField = true;
+      this.showBreedField = true;
+      if(Number(useId) === 2 ){
+        this.showCastratedField = true;
+      }else{
+        this.showCastratedField = false;
+      }
+    }
   }
-
-
 
   daysBetween(date1: Date, date2: Date): number { 
     // Diferencia en milisegundos 
@@ -387,8 +385,8 @@ export class AnimalAddComponent implements OnInit {
     return false;
   }
 
-  onUseChange(useId: number) {
-    console.log('use change')
+  onProductionUseChange(useId: number) {
+    
   }
 
 
@@ -446,10 +444,12 @@ export class AnimalAddComponent implements OnInit {
 
     if(formData.statusId == 0){ formData.statusId = 1}
     
-    this.animalService.create(formData).subscribe(() => {
+    console.log('Datos antes del create service:', formData);
+
+    /*this.animalService.create(formData).subscribe(() => {
       console.log('Datos enviados:', formData);
       this.goBack();
-    });
+    });*/
   }
   
   /** Navega hacia atrás */
