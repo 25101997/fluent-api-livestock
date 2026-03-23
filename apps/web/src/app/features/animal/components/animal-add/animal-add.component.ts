@@ -386,9 +386,13 @@ export class AnimalAddComponent implements OnInit {
   }
 
   onProductionUseChange(useId: number) {
-    
+    if(useId){
+      this.showStageField =   true;
+      this.showWeightField =   true;
+      this.showBreedField =   true;
+      if(useId == 2){this.showCastratedField=true;}else{this.showCastratedField=false;}
+    }
   }
-
 
   isUseValid(useId: number): boolean {
 
@@ -446,10 +450,10 @@ export class AnimalAddComponent implements OnInit {
     
     console.log('Datos antes del create service:', formData);
 
-    /*this.animalService.create(formData).subscribe(() => {
+    this.animalService.create(formData).subscribe(() => {
       console.log('Datos enviados:', formData);
       this.goBack();
-    });*/
+    });
   }
   
   /** Navega hacia atrás */
