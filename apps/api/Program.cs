@@ -71,7 +71,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 // DEBE IR ANTES DE MapControllers()
 //app.UseCors("AllowAngularApp");

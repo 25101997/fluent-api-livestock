@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS animal (
 
     -- 🔹 Atributos descriptivos
     sex VARCHAR(10) NOT NULL CHECK (sex IN ('macho', 'hembra')),
-    breed VARCHAR(100) NOT NULL,
+    breed VARCHAR(100),
 
     -- 🔹 Fechas de control
     birth_date DATE NOT NULL,
@@ -138,16 +138,22 @@ CHECK (status IN ('registrado','fecundado','no fecundado','abortado', 'finalizad
 
 TRUNCATE TABLE animal_reproductive_record RESTART IDENTITY CASCADE;
 
-SELECT * FROM animal_reproductive_record;
-
-SELECT * FROM animal;
-
 TRUNCATE TABLE animal RESTART IDENTITY CASCADE;
 
 DELETE FROM animal WHERE litter_id = 2 AND sex = 'macho';
 
-SELECT * FROM animal WHERE id = 6;
+SELECT * FROM animal WHERE id = 12;
 
-SELECT * FROM animal_stage;
+UPDATE animal SET production_use_id = null, breed_id = null WHERE id =12;
 
-INSERT INTO animal_stage(name) VALUES('pre-reproduccion');
+SELECT column_name, data_type, is_nullable
+FROM information_schema.columns
+WHERE table_name = 'animal';
+
+ALTER TABLE animals
+ALTER COLUMN breed DROP NOT NULL;
+
+SELECT * FROM animal WHERE id=17;
+
+
+DELETE FROM animal;

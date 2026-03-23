@@ -430,10 +430,10 @@ export class AnimalAddComponent implements OnInit {
                                       originId: Number(raw.originId),
                                       statusId: Number(raw.statusId),
                                       stageId: Number(raw.stageId),
-                                      breedBId: Number(raw.breedId),
+                                      breedId: Number(raw.breedId),
                                       productionUseId: Number(raw.productionUseId),
                                       litterId: raw.litterId,
-                                      isCastrated: raw.castrated,
+                                      isCastrated: Boolean(raw.castrated),
                                       weight: Number(this.animalForm.value.weight),
                                       sex: raw.sex,
                                       breed: raw.breed,
@@ -443,6 +443,8 @@ export class AnimalAddComponent implements OnInit {
     if(formData.litterId){
       formData.litterId = Number(raw.litterId)
     }
+
+    if(formData.statusId == 0){ formData.statusId = 1}
     
     this.animalService.create(formData).subscribe(() => {
       console.log('Datos enviados:', formData);

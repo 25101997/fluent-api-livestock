@@ -237,7 +237,7 @@ export class AnimalFormComponent implements OnInit {
                                       statusId: Number(1),
                                       stageId: Number(this.animalForm.value.stageId),
                                       litterId: this.animalForm.value.litterId,
-                                      breedBId: 1,
+                                      breedId: 1,
                                       productionUseId: 1,
                                       isCastrated: false,
                                       weight: Number(this.animalForm.value.weight),

@@ -9,11 +9,14 @@ namespace Application.Controllers
     public class AnimalController : ControllerBase
     {
         private readonly AnimalService _service;
+        private readonly ILogger<AnimalController> _logger;
 
-        public AnimalController(AnimalService service)
+        public AnimalController(AnimalService service, ILogger<AnimalController> logger)
         {
             _service = service;
+            _logger = logger;
         }
+
 
         [HttpGet]
         public async Task<IActionResult> GetAll()

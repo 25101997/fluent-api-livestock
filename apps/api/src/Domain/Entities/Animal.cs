@@ -8,14 +8,14 @@ namespace Domain.Entities
         public int OriginId { get; set; }
         public int StatusId { get; set; }
         public int StageId { get; set; }
-        public int? BreedBId { get; set; }
+        public int? BreedId { get; set; }
         public int? ProductionUseId { get; set; }
         public int? LitterId { get; set; }
 
         // Atributos descriptivos
         public string Sex { get; set; } = string.Empty;
-        public string Breed { get; set; } = string.Empty;
-        public decimal? Weight { get; set; }
+        public string? Breed { get; set; }
+        public decimal Weight { get; set; }
         public bool IsCastrated { get; set; }
 
         // Fechas
